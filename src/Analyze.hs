@@ -49,17 +49,13 @@ sanityCheck (a:b:rest)
          fromb = fromSection b
 
 toClickerOverwrite :: (MonadWriter String m) => [SectionChange] -> m String
-toClickerOverwrite ls = L.unlines <$> mapM toOverwriteEntries (groupByStudent ls)
+toClickerOverwrite ls = mconcat <$> mapM toOverwriteEntries (groupByStudent ls)
 
 toOverwriteEntries :: (MonadWriter String m) => [SectionChange] -> m String
 toOverwriteEntries ls = do
    let a = sortByDate ls
    sanityCheck a
-   return $ toOverwriteEntries' a
-   
-toOverwriteEntries' :: [SectionChange] -> String
-toOverwriteEntries' [] = ""
-toOverwriteEntries' ls = L.unlines $ L.zipWith mkOverwriteEntry (init : map date ls) ls
+   return $ L.unlines $ L.zipWith mkOverwriteEntry (init : map date a) a
    where
       init = UTCTime (ModifiedJulianDay 0) (secondsToDiffTime 0)
       qid = questID $ student $ head ls 

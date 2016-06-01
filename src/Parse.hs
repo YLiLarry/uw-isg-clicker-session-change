@@ -18,7 +18,7 @@ data SectionChange = SectionChange {
 
 sanityCheck :: (MonadError String m) => [Token] -> m ()
 sanityCheck [] 
-   = throwError $ "No MEET_PRIMARY change found in the email input.\n"
+   = throwError $ "No 'MEET_PRIMARY change' found in the email input.\n"
 sanityCheck ((TSectionChange _ _ _):_) 
    = throwError $ "Expected a 'Date' (in the header) before the email content,\n" ++
                   "but a 'MEET_PRIMARY change' was found first.\n"

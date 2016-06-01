@@ -7,10 +7,14 @@ import Control.Monad.Writer
 import Control.Monad.Except
 
 main :: IO ()
-main = interact make
+main = do 
+   putStrLn "# The first day of term only needs to be earlier than the actual date,"
+   putStrLn "# so 1858-11-17 is used and it should work as expected."
+   putStrLn "# Input email below:"
+   interact make
 
 make :: String -> String   
-make input = 
+make input = do
    case a of 
       Left e  -> error $ "\nAn Error happened:\n" ++
                          e ++
